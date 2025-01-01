@@ -28,8 +28,8 @@ struct ArticleDetailView: View {
                         case .success(let image):
                             image
                                 .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(height: 300)
+                                .scaledToFit()
+                                .frame(maxWidth: .infinity)
                                 .clipped()
                                 .cornerRadius(12)
                         case .failure:
@@ -44,6 +44,8 @@ struct ArticleDetailView: View {
                         }
                     }
                 }
+                
+                Divider()
 
                 // Content
                 VStack(alignment: .leading, spacing: 16) {
@@ -70,7 +72,14 @@ struct ArticleDetailView: View {
                                 .foregroundColor(.red)
                             Label("\(details.comments)", systemImage: "message.fill")
                                 .foregroundColor(.blue)
+                        } else if viewModel.error != nil {
+                            // Display just the images if there is an error
+                            Label("", systemImage: "heart")
+                                .foregroundColor(.red)
+                            Label("", systemImage: "message")
+                                .foregroundColor(.blue)
                         } else {
+                            // Show loading spinner until details are fetched
                             ProgressView()
                         }
                     }
@@ -81,16 +90,18 @@ struct ArticleDetailView: View {
                             .lineSpacing(4)
                     }
                     
-                    // Error View
-                    if let error = viewModel.error {
-                        Text(error.localizedDescription)
-                            .foregroundColor(.red)
-                            .font(.caption)
-                    }
+//                    // Error View
+//                    if let error = viewModel.error {
+//                        Text(error.localizedDescription)
+//                            .foregroundColor(.red)
+//                            .font(.caption)
+//                    }
                 }
                 .padding()
             }
         }
+        .padding()
+        .frame(maxWidth: .infinity)
         .navigationTitle(viewModel.article.title)
         .navigationBarTitleDisplayMode(.inline)
         .task {

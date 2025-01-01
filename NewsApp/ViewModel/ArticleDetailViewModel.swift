@@ -24,6 +24,10 @@ class ArticleDetailViewModel: ObservableObject {
             await MainActor.run {
                 self.details = fetchedDetails
             }
+        } catch let error as URLError where error.code == .badServerResponse {
+            await MainActor.run {
+                self.error = NSError(domain: "Article Details", code: 404, userInfo: [NSLocalizedDescriptionKey: "Details not found."])
+            }
         } catch {
             await MainActor.run {
                 self.error = error

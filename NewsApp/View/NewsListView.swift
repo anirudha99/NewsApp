@@ -19,33 +19,34 @@ struct NewsListView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                if viewModel.articles.isEmpty {
-                    VStack {
-                        Image(systemName: "doc.text.magnifyingglass")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 120, height: 120)
-                            .foregroundColor(.gray)
-                        Text("No articles found")
-                            .font(.headline)
-                            .foregroundColor(.gray)
-                    }
-                } else {
-                    List(viewModel.articles) { article in
-                        NewsCardView(article: article)
-                            .onTapGesture {
-                                coordinator.showArticleDetail(article)
-                            }
-                            .listRowSeparator(.hidden)
-                            .transition(.opacity)
-                    }
-                    .listStyle(PlainListStyle())
-                }
-
                 if viewModel.isLoading {
                     ProgressView("Loading news...")
                         .progressViewStyle(CircularProgressViewStyle(tint: .blue))
                         .scaleEffect(1.5)
+                } else {
+                    if viewModel.articles.isEmpty {
+                        VStack {
+                            Image(systemName: "doc.text.magnifyingglass")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 120, height: 120)
+                                .foregroundColor(.gray)
+                            Text("No articles found")
+                                .font(.headline)
+                                .foregroundColor(.gray)
+                        }
+                    } else {
+                        List(viewModel.articles) { article in
+                            NewsCardView(article: article)
+                                .onTapGesture {
+                                    coordinator.showArticleDetail(article)
+                                }
+                                .listRowSeparator(.hidden)
+                                .transition(.opacity)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .listStyle(PlainListStyle())
+                    }
                 }
             }
             .navigationTitle("US News")
