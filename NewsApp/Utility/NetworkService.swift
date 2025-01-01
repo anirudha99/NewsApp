@@ -37,7 +37,7 @@ protocol NetworkServiceProtocol {
 }
 
 class NetworkService: NetworkServiceProtocol {
-    private let apiKey = "YOUR_API_KEY"
+    private let apiKey = "d90cb12b16694bf38e6e8e72aae07316"
     
     func fetchNews() async throws -> [Article] {
         guard let url = URL(string: "https://newsapi.org/v2/top-headlines?country=us&apiKey=\(apiKey)") else {
