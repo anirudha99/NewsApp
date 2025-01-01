@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import UIKit
+import SwiftUI
 
 // MARK: - Coordinator
 protocol Coordinator: AnyObject {
@@ -23,13 +25,15 @@ class MainCoordinator: Coordinator {
     
     func start() {
         let viewModel = NewsListViewModel()
-        let newsListVC = NewsListViewController(viewModel: viewModel, coordinator: self)
+        let newsListView = NewsListView(viewModel: viewModel, coordinator: self)
+        let newsListVC = UIHostingController(rootView: newsListView)
         navigationController.pushViewController(newsListVC, animated: false)
     }
     
     func showArticleDetail(_ article: Article) {
         let viewModel = ArticleDetailViewModel(article: article)
-        let detailVC = ArticleDetailViewController(viewModel: viewModel)
+        let detailView = ArticleDetailView(viewModel: viewModel)
+        let detailVC = UIHostingController(rootView: detailView)
         navigationController.pushViewController(detailVC, animated: true)
     }
 }
