@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct NewsAppApp: App {
+    @StateObject private var coordinatorViewModel = CoordinatorViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CoordinatorView(viewModel: coordinatorViewModel)
         }
     }
 }

@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct NewsListView: View {
-    @StateObject private var viewModel: NewsListViewModel
-    private let coordinator: Coordinator
+    @ObservedObject private var viewModel: NewsListViewModel
+    private let coordinator: CoordinatorViewModel
     
-    init(viewModel: NewsListViewModel, coordinator: Coordinator) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+    init(viewModel: NewsListViewModel, coordinator: CoordinatorViewModel) {
+        self.viewModel = viewModel
         self.coordinator = coordinator
     }
     
     var body: some View {
-        List(viewModel.articles, id: \.url) { article in
+        List(viewModel.articles) { article in
             NewsCardView(article: article)
                 .onTapGesture {
                     coordinator.showArticleDetail(article)
