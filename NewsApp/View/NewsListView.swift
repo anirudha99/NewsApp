@@ -22,9 +22,14 @@ struct NewsListView: View {
                 .onTapGesture {
                     coordinator.showArticleDetail(article)
                 }
+                .transition(.opacity)
+                .animation(.easeInOut, value: article)
         }
         .navigationTitle("US News")
         .task {
+            await viewModel.fetchNews()
+        }
+        .refreshable {
             await viewModel.fetchNews()
         }
     }
