@@ -49,7 +49,7 @@ struct NewsListView: View {
                     }
                 }
             }
-            .navigationTitle("US News")
+            .navigationTitle("Star News")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
