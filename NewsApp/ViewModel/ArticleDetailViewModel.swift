@@ -7,9 +7,9 @@
 
 import Foundation
 
-class ArticleDetailViewModel {
+class ArticleDetailViewModel: ObservableObject {
     private let networkService: NetworkServiceProtocol
-    private let article: Article
+    let article: Article
     @Published private(set) var details: ArticleDetails?
     @Published private(set) var error: Error?
     
@@ -20,9 +20,14 @@ class ArticleDetailViewModel {
     
     func fetchDetails() async {
         do {
-            details = try await networkService.fetchArticleDetails(articleId: article.articleId)
+            let fetchedDetails = try await networkService.fetchArticleDetails(articleId: article.articleId)
+            await MainActor.run {
+                self.details = fetchedDetails
+            }
         } catch {
-            self.error = error
+            await MainActor.run {
+                self.error = error
+            }
         }
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NewsListViewModel {
+class NewsListViewModel: ObservableObject {
     private let networkService: NetworkServiceProtocol
     @Published private(set) var articles: [Article] = []
     @Published private(set) var error: Error?
@@ -18,9 +18,14 @@ class NewsListViewModel {
     
     func fetchNews() async {
         do {
-            articles = try await networkService.fetchNews()
+            let fetchedArticles = try await networkService.fetchNews()
+            await MainActor.run {
+                self.articles = fetchedArticles
+            }
         } catch {
-            self.error = error
+            await MainActor.run {
+                self.error = error
+            }
         }
     }
 }
