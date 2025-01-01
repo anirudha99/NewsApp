@@ -7,6 +7,29 @@
 
 import Foundation
 
+enum NetworkError: Error {
+    case invalidURL
+    case invalidResponse
+    case decodingError
+    case serverError
+    case unknown
+    
+    var errorMessage: String {
+        switch self {
+        case .invalidURL:
+            return "Invalid URL"
+        case .invalidResponse:
+            return "Invalid response from server"
+        case .decodingError:
+            return "Error decoding data"
+        case .serverError:
+            return "Server error"
+        case .unknown:
+            return "Unknown error occurred"
+        }
+    }
+}
+
 // MARK: - Network Layer
 protocol NetworkServiceProtocol {
     func fetchNews() async throws -> [Article]
