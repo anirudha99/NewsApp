@@ -7,12 +7,15 @@
 
 import Foundation
 
-struct Article: Codable {
+struct Article: Codable, Identifiable {
     let title: String
     let description: String?
     let author: String?
     let urlToImage: String?
     let url: String
+    
+    // Add id property to conform to Identifiable
+    var id: String { url }
     
     // Computed property for article ID
     var articleId: String {
