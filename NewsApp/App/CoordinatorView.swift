@@ -10,10 +10,10 @@ import SwiftUI
 struct CoordinatorView: View {
     @StateObject private var newsViewModel = NewsListViewModel()
     @ObservedObject var viewModel: CoordinatorViewModel
-    
+
     var body: some View {
         NavigationStack(path: $viewModel.navigationPath) {
-            NewsListView(viewModel: newsViewModel, coordinator: viewModel)
+            MainView(viewModel: newsViewModel, coordinator: viewModel)
                 .navigationDestination(for: Article.self) { article in
                     ArticleDetailView(viewModel: ArticleDetailViewModel(article: article))
                 }

@@ -19,6 +19,12 @@ struct NewsListView: View {
     var body: some View {
         NavigationView {
             ZStack {
+                // Apply gradient only when not loading
+                if !viewModel.isLoading {
+                    LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.5), Color.purple.opacity(0.3)]), startPoint: .topLeading, endPoint: .topTrailing)
+                        .edgesIgnoringSafeArea(.all)
+                }
+
                 if viewModel.isLoading {
                     ProgressView("Loading news...")
                         .progressViewStyle(CircularProgressViewStyle(tint: .blue))
@@ -49,7 +55,23 @@ struct NewsListView: View {
                     }
                 }
             }
-            .navigationTitle("Star News")
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    HStack {
+                        Image(systemName: "star.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                        Text("Star News")
+                            .font(.system(size: 32, weight: .bold))
+                            .foregroundColor(.primary)
+                        Image(systemName: "star.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                    }
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
