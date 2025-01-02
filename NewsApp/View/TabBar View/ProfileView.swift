@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A view displaying the user's profile.
 struct ProfileView: View {
     var body: some View {
         VStack {
@@ -14,13 +15,14 @@ struct ProfileView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .padding()
-
+            
             Spacer()
-
+            
+            // Placeholder for profile information.
             Text("Profile information will go here.")
                 .font(.headline)
                 .foregroundColor(.gray)
-
+            
             Spacer()
         }
     }
