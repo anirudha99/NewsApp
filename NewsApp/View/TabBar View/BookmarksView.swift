@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A view displaying the user's bookmarked articles.
 struct BookmarksView: View {
     var body: some View {
         VStack {
@@ -17,6 +18,7 @@ struct BookmarksView: View {
 
             Spacer()
 
+            // Placeholder for when no bookmarks are available.
             Text("No bookmarks yet!")
                 .font(.headline)
                 .foregroundColor(.gray)

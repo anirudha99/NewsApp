@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Represents a news article.
 struct Article: Codable, Identifiable, Hashable {
     let title: String
     let description: String?
@@ -22,7 +23,7 @@ struct Article: Codable, Identifiable, Hashable {
         return url.host?.appending(url.path.replacingOccurrences(of: "/", with: "-")) ?? ""
     }
     
-    // Conform to Hashable for NavigationStack
+    // Conform to Hashable for NavigationStack - Hashes the essential properties of the article.
     func hash(into hasher: inout Hasher) {
         hasher.combine(url)
     }
@@ -32,11 +33,12 @@ struct Article: Codable, Identifiable, Hashable {
     }
 }
 
-
+/// Represents the response from the news API, containing a list of articles.
 struct NewsResponse: Codable {
     let articles: [Article]
 }
 
+/// Represents additional details for an article, such as likes and comments.
 struct ArticleDetails {
     let likes: Int
     let comments: Int

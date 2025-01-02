@@ -7,12 +7,13 @@
 
 import SwiftUI
 
+/// A card-style view displaying a summary of an article.
 struct NewsCardView: View {
     let article: Article
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            // Image
+            // Article Image
             if let imageUrl = article.urlToImage {
                 AsyncImage(url: URL(string: imageUrl)) { phase in
                     switch phase {
@@ -40,7 +41,7 @@ struct NewsCardView: View {
                 }
             }
 
-            // Content
+            // Article Text Content
             VStack(alignment: .leading, spacing: 8) {
                 Text(article.title)
                     .font(.headline)
@@ -55,11 +56,9 @@ struct NewsCardView: View {
                 }
 
                 HStack {
-                    if article.author != nil {
+                    if let author = article.author {
                         Image(systemName: "person.circle.fill")
                             .foregroundColor(.gray)
-                    }
-                    if let author = article.author {
                         Text(author)
                             .font(.caption)
                             .foregroundColor(.secondary)

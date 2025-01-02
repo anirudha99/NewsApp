@@ -7,9 +7,12 @@
 
 import SwiftUI
 
+/// A detailed view displaying information about a specific article.
 struct ArticleDetailView: View {
     @StateObject private var viewModel: ArticleDetailViewModel
 
+    /// Initializes the view with the provided view model.
+    /// - Parameter viewModel: The view model for managing article details.
     init(viewModel: ArticleDetailViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -44,22 +47,21 @@ struct ArticleDetailView: View {
                         }
                     }
                 }
-                
+
                 Divider()
 
-                // Content
+                // Article Content
                 VStack(alignment: .leading, spacing: 16) {
                     // Title
                     Text(viewModel.article.title)
                         .font(.title)
                         .fontWeight(.bold)
 
+                    // Author and Stats
                     HStack(spacing: 16) {
-                        if viewModel.article.author != nil {
+                        if let author = viewModel.article.author {
                             Image(systemName: "person.circle.fill")
                                 .foregroundColor(.gray)
-                        }
-                        if let author = viewModel.article.author {
                             Text("By \(author)")
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
@@ -67,6 +69,7 @@ struct ArticleDetailView: View {
 
                         Spacer()
 
+                        // Article likes and comments
                         if let details = viewModel.details {
                             Label("\(details.likes)", systemImage: "heart.fill")
                                 .foregroundColor(.red)
@@ -98,6 +101,7 @@ struct ArticleDetailView: View {
         .navigationTitle(viewModel.article.title)
         .navigationBarTitleDisplayMode(.inline)
         .task {
+            // Fetch additional article details on view load.
             await viewModel.fetchDetails()
         }
     }
