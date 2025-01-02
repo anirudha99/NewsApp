@@ -37,7 +37,7 @@ protocol NetworkServiceProtocol {
 }
 
 class NetworkService: NetworkServiceProtocol {
-    private let apiKey = "d90cb12b16694bf38e6e8e72aae07316"
+    private let apiKey = "YOUR_API_KEY"
     private let baseURL = "https://cn-news-info-api.herokuapp.com"
     
     func fetchNews() async throws -> [Article] {
